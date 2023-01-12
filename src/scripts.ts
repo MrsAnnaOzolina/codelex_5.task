@@ -15,7 +15,8 @@ export interface Product {
     createdAt: number;
     currency: string;
     type: string;
-    relatedCourses: {
+    relatedCourses: { 
+        // VAI Produc[]
     id: number;
     title: string;
     price: string;
@@ -165,8 +166,8 @@ interface Cat {
 const anyProduct: Cat = {name: 'Mr. Fluff', kind: 'British Shorthair', age: 4}
 const productTitle = anyProduct.title
 const priceWithTaxes = anyProduct.price * (1.25)
-//const upperCaseTitle = anyProduct.price.toUpperCase()
-//!!!!!!!   NEED TO OVERCHECK THIS
+const upperCaseTitle = anyProduct.price.toUpperCase()
+//!!!!!!!   THIS
 
 
 // Exercise 3) Anonymus Functions
@@ -262,11 +263,11 @@ const accountCurrency = getCurrency(account)
 //  Account type (declared above) to be able to use it as an Account
 //  in the other parts of the application.  
 const fetchAccount = (id: number): object => ({id: id, name: "Some Account", currency: "USD"})
-var currentAccount: Account,{} = fetchAccount(4)/* add Type Assertion here */
-// const currentAccountName = currentAccount.name
-// console.log(currentAccount);
+var currentAccount = <Account> fetchAccount(4)/* add Type Assertion here */
+const currentAccountName = currentAccount.name
+console.log(currentAccount);
 
-//// !!!!!!!! NEED TO OVERCHECK THIS
+//// !!!!!!!! THIS, <Account>, not currentAccount:Account,{}
 
 // Exercies 7) Literal types
 //
@@ -284,7 +285,7 @@ type EUR = 'EUR'
 //  both EUR and USD. How can you define two possible
 //  types for one type? (we have seen before
 //  with numbers and strings).
-type Currency = string
+type Currency = null |string
 const firstCurrency: Currency = 'USD';
 const secondCurrency: Currency = 'EUR'
 const usd: string = firstCurrency;
@@ -324,7 +325,7 @@ const someCurrency = getSomeCurrency(someAccount)
 //  the type errors.
 type AccountWithOrWithoutCurrency = {
     name: string,
-    currency: 'USD' | 'EUR' | undefined | null
+    currency: Currency
 }
 const removeCurrency = (account: AccountWithOrWithoutCurrency): AccountWithOrWithoutCurrency => {
     return {
@@ -332,5 +333,6 @@ const removeCurrency = (account: AccountWithOrWithoutCurrency): AccountWithOrWit
         currency: null
     }
 }
+
 
 
